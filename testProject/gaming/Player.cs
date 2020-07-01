@@ -1,50 +1,41 @@
 ﻿using System;
-using System.Collections.Generic;
 
 namespace Gaming
 {
-    class Ranking
+    class Player
     {
-        public List<Player> ranks = new List<Player>();
-        public string bestPlayerName;
-        public int bestPlayerScore;
+        private int score;
+        private string name;
 
-        public void GenerateRanking(int numberOfPlayers)
+        public string Name
         {
-            for (int i = 0; i < numberOfPlayers; i++)
+            set
             {
-                var newPlayer = new Player { Name = $"Player_{i}", Score = new Random().Next(0, 3000) };
-                ranks.Add(newPlayer);
-                Console.WriteLine(newPlayer.playerInfo);
+                if (value.Length <= 0) throw new Exception("Name must be longer than 0");
+                name = value;
+            }
+            get
+            {
+                return name;
             }
         }
-        public void ShowRanking()
+        public int Score
         {
-            for (int i = 0; i < this.ranks.Count; i++)
+            set
             {
-                Console.WriteLine(this.ranks[i].Name);
-                Console.WriteLine(this.ranks[i].Score);
+                if (value < 0) throw new Exception("Score may not be lower than 0");
+                score = value;
+            }
+            get
+            {
+                return score;
             }
         }
-        public void BestPlayer()
+        public string playerInfo
         {
-            for (int i = 0; i < this.ranks.Count; i++)
+            get
             {
-                if (i == 0)
-                {
-                    this.bestPlayerScore = this.ranks[i].Score;
-                    this.bestPlayerName = this.ranks[i].Name;
-                }
-                else if (i == this.ranks.Count - 1)
-                {
-                    Console.WriteLine($"And the best player is {this.bestPlayerName} with a score of {this.bestPlayerScore}");
-                }
-
-                if (this.ranks[i].Score > this.bestPlayerScore)
-                {
-                    this.bestPlayerName = this.ranks[i].Name;
-                    this.bestPlayerScore = this.ranks[i].Score;
-                }
+                return $"player >{name}< added with a score of {score}.";
             }
         }
     }
